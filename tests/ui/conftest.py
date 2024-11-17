@@ -21,7 +21,7 @@ def browser_management():
         options = Options()
         capabilities = {
             'browserName': 'chrome',
-            'browserVersion': '127.0',
+            'browserVersion': '100',
             'selenoid:options': {
                 'enableVNC': True,
                 'enableVideo': True
@@ -29,13 +29,11 @@ def browser_management():
         }
         options.capabilities.update(capabilities)
 
-        # login = config.settings.SELENOID_LOGIN
-        # password = config.settings.SELENOID_PASSWORD
+        login = config.settings.SELENOID_LOGIN
+        password = config.settings.SELENOID_PASSWORD
 
         driver = webdriver.Remote(
-            # options=options
-            command_executor="http://localhost:4444/wd/hub",
-            # desired_capabilities=capabilities
+            command_executor=f'https://{login}:{password}@selenoid.autotests.cloud/wd/hub',
             options=options
         )
         browser.config.driver = driver
